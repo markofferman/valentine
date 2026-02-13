@@ -295,17 +295,9 @@ body {
   animation: heartBeat 1.2s ease-in-out infinite;
 }
 
-.celebration-hearts span:nth-child(2) { animation-delay: 0.15s; }
-.celebration-hearts span:nth-child(3) { animation-delay: 0.3s; }
-.celebration-hearts span:nth-child(4) { animation-delay: 0.45s; }
-.celebration-hearts span:nth-child(5) { animation-delay: 0.6s; }
-
 @keyframes heartBeat {
   0%, 100% { transform: scale(1); }
-  15% { transform: scale(1.25); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.15); }
-  60% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 .celebration-title {
@@ -335,11 +327,11 @@ body {
   box-shadow: 0 4px 20px rgba(190, 30, 62, 0.1);
 }
 
-.personal-note p {
-  font-style: italic;
-  line-height: 1.7;
-  color: var(--text-dark);
-  opacity: 0.9;
+.our-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
 }
 
 /* ============================
