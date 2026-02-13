@@ -4,7 +4,7 @@
   // =============================
   // Floating Hearts Background
   // =============================
-  const heartSymbols = ['♥', '♡', '❤', '💕'];
+  const heartSymbols = ['♥', '♡', '❤', '💕', '🍍', '🍍', '🍍'];
   const heartsBg = document.querySelector('.hearts-bg');
 
   function createFloatingHeart() {
@@ -144,7 +144,7 @@
   resizeCanvas();
 
   const confettiColors = ['#be1e3e', '#f8d0d8', '#d4a574', '#e8c89e', '#ff6b8a', '#ff91a4'];
-  const heartShape = '♥';
+  const confettiEmojis = ['♥', '🍍'];
 
   class ConfettiPiece {
     constructor() {
@@ -157,7 +157,8 @@
       this.rotation = Math.random() * 360;
       this.rotationSpeed = (Math.random() - 0.5) * 8;
       this.opacity = 1;
-      this.isHeart = Math.random() > 0.6;
+      this.isEmoji = Math.random() > 0.5;
+      this.emoji = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
     }
 
     update() {
@@ -177,9 +178,9 @@
       ctx.rotate((this.rotation * Math.PI) / 180);
       ctx.globalAlpha = Math.max(0, this.opacity);
 
-      if (this.isHeart) {
+      if (this.isEmoji) {
         ctx.font = this.size + 'px serif';
-        ctx.fillText(heartShape, 0, 0);
+        ctx.fillText(this.emoji, 0, 0);
       } else {
         ctx.fillStyle = this.color;
         ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
