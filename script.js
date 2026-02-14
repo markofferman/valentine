@@ -45,11 +45,12 @@
   const noTexts = [
     'No',
     'Are you sure?',
+    'Verkeerde knop! 😏',
     'Really?',
     'Think again!',
-    'Wrong button!',
+    'Nee hoor!',
     'Nope, try again!',
-    'Not this one!',
+    'Oeps, gemist!',
     '😏',
   ];
 
@@ -105,6 +106,46 @@
   noBtn.addEventListener('mouseover', dodgeNoButton);
   // Mobile: dodge on touch
   noBtn.addEventListener('touchstart', dodgeNoButton, { passive: false });
+
+  // =============================
+  // Automatic Button Growth/Shrink
+  // =============================
+  let autoGrowthTime = 0;
+  const autoGrowthInterval = setInterval(() => {
+    // Only run if still on question screen
+    if (questionSection.classList.contains('hidden')) {
+      clearInterval(autoGrowthInterval);
+      return;
+    }
+
+    autoGrowthTime++;
+
+    // Gradually grow Yes button (max 1.6x after 20 seconds)
+    const yesScale = 1 + Math.min(autoGrowthTime * 0.03, 0.6);
+    const currentYesTransform = yesBtn.style.transform;
+    // If dodge hasn't set a larger scale, apply auto growth
+    if (!currentYesTransform || !currentYesTransform.includes('scale')) {
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    // Gradually shrink No button (min 0.5x after 20 seconds)
+    if (autoGrowthTime >= 3) {
+      const noScale = Math.max(1 - (autoGrowthTime - 2) * 0.025, 0.5);
+      // Only shrink if dodge hasn't already shrunk it more
+      if (!noBtn.style.fontSize || parseFloat(noBtn.style.fontSize) > noScale) {
+        noBtn.style.fontSize = noScale + 'rem';
+        noBtn.style.padding = `${0.75 * noScale}rem ${2 * noScale}rem`;
+      }
+    }
+
+    // After 15 seconds, start fading No button
+    if (autoGrowthTime >= 15) {
+      const noOpacity = Math.max(1 - (autoGrowthTime - 14) * 0.04, 0.4);
+      if (!noBtn.style.opacity || parseFloat(noBtn.style.opacity) > noOpacity) {
+        noBtn.style.opacity = noOpacity;
+      }
+    }
+  }, 1000); // Run every second
 
   // =============================
   // Yes Button — Celebration
